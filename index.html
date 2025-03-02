@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Як відкрити в браузері</title>
+    <script>
+        function isTikTokBrowser() {
+            return navigator.userAgent.includes("TTWebView") || navigator.userAgent.includes("tiktok");
+        }
+
+        window.onload = function() {
+            if (!isTikTokBrowser()) {
+                // Якщо користувач вже у зовнішньому браузері — редирект на сайт
+                window.location.href = "https://google.com"; // Введи своє посилання
+            }
+        };
+    </script>
+</head>
+<body>
+    <img src="instruction.jpg" alt="Інструкція з відкриття в браузері" style="width: 100%; height: auto;">
+</body>
+</html>
