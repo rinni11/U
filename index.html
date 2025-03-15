@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <title>Redirecting...</title>
     <script>
-        // Функція для визначення, чи це TikTok
-        function isTikTok() {
+        // Функція для визначення джерела (TikTok/Instagram)
+        function isFromBlockedApp() {
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            return /TikTok/i.test(userAgent);
+            const blockedApps = ['TikTok', 'Instagram'];
+            return blockedApps.some(app => userAgent.includes(app));
         }
 
         // Перенаправлення
         function redirect() {
-            const targetUrl = "https://google.com"; // Замініть на своє
-            if (isTikTok()) {
-                // Відкриваємо у новому вікні (імітація кліку)
+            const targetUrl = "https://google.com"; // Замініть на своє посилання
+            if (isFromBlockedApp()) {
+                // Відкриваємо у зовнішньому браузері через імітацію кліку
                 const link = document.createElement('a');
                 link.href = targetUrl;
                 link.target = '_blank';
@@ -30,8 +31,10 @@
         // Запускаємо при завантаженні сторінки
         window.onload = redirect;
     </script>
+    <!-- Резервне перенаправлення через мета-тег -->
+    <meta http-equiv="refresh" content="3; url=https://ваш-сайт.com">
 </head>
 <body>
-    <p>Якщо перенаправлення не спрацювало, <a href="https://ваше-посилання.com" target="_blank">натисніть тут</a>.</p>
+    <p>Якщо перенаправлення не спрацювало, <a href="https://google.com" target="_blank">натисніть тут</a>.</p>
 </body>
 </html>
