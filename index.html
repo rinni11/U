@@ -1,20 +1,37 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Інструкція</title>
+    <title>Redirecting...</title>
+    <script>
+        // Функція для визначення, чи це TikTok
+        function isTikTok() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            return /TikTok/i.test(userAgent);
+        }
+
+        // Перенаправлення
+        function redirect() {
+            const targetUrl = "https://google.com"; // Замініть на своє
+            if (isTikTok()) {
+                // Відкриваємо у новому вікні (імітація кліку)
+                const link = document.createElement('a');
+                link.href = targetUrl;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                document.body.appendChild(link);
+                link.click();
+            } else {
+                // Звичайне перенаправлення
+                window.location.href = targetUrl;
+            }
+        }
+
+        // Запускаємо при завантаженні сторінки
+        window.onload = redirect;
+    </script>
 </head>
 <body>
-    <img src="https://github.com/rinni11/U/blob/main/IMG_20250302_145627.jpg" alt="Інструкція">
-    <p>Натисніть на три крапки в правому верхньому кутку і виберіть "Відкрити в браузері"
-        та зачекайте пару секунд.</p>
-    <script>
-        function redirectToSite() {
-            window.location.href = "https://google.com";
-        }
-        // Автоматичне перенаправлення через 7 секунд
-        setTimeout(redirectToSite, 7000);
-    </script>
+    <p>Якщо перенаправлення не спрацювало, <a href="https://ваше-посилання.com" target="_blank">натисніть тут</a>.</p>
 </body>
 </html>
