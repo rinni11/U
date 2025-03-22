@@ -1,3 +1,41 @@
-<a href="intent://google.com#Intent;scheme=https;package=com.android.chrome;end;">
+<a href="https://google.com" onclick="openInBrowser(event); return false;">
   🔗 Відкрити в браузері
 </a>
+
+<script>
+function openInBrowser(event) {
+  event.preventDefault();
+  const url = 'https://google.com';
+  const isAndroid = /android/i.test(navigator.userAgent);
+  const isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  // Для Android (Chrome)
+  if (isAndroid) {
+    const intentUrl = `intent://google.com#Intent;scheme=https;package=com.android.chrome;end;`;
+    window.location.href = intentUrl;
+    
+    setTimeout(() => {
+      if (!document.hidden) window.location.href = url;
+    }, 500);
+  }
+
+  // Для iOS (відкриваємо в Safari, якщо Chrome не вдається)
+  else if (isiOS) {
+    const chromeUrl = 'googlechrome://google.com';
+    
+    const newWindow = window.open(chromeUrl, '_blank');
+    setTimeout(() => {
+      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        // Якщо Chrome не відкрився, пробуємо відкрити Safari
+        window.location.href = url;
+      }
+    }, 500);
+  }
+
+  // Для інших платформ
+  else {
+    window.open(url, '_blank');
+  }
+}
+      </script>
+      
