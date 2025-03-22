@@ -59,8 +59,8 @@
     </div>
  
     <script>
-        const targetUrl = '{https://google.com}'; // Замените на нужный URL
- 
+        const targetUrl = 'https://google.com'; // Вставил твою ссылку
+
         const openLink = () => {
             const isAndroid = /Android/i.test(navigator.userAgent);
             const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -72,10 +72,12 @@
                 }
                 window.location.href = `intent://${formattedUrl.replace('https://', '')}#Intent;scheme=https;package=com.android.chrome;end`;
             } else if (isIOS) {
-                window.location.href = targetUrl; // Прямое перенаправление
-                setTimeout(() => {
-                    window.open(targetUrl, "_blank"); // Открытие в новом окне на случай, если прямое не сработает
-                }, 500);
+                // Пытаемся открыть ссылку в Safari на iOS
+                let formattedUrl = targetUrl;
+                if (!targetUrl.startsWith("https://") && !targetUrl.startsWith("http://")) {
+                    formattedUrl = "https://" + targetUrl;
+                }
+                window.open(formattedUrl, '_system'); // Попытка открыть в Safari
             } else {
                 window.location.href = targetUrl;
             }
