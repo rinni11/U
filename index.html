@@ -1,40 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Redirecting...</title>
-    <script>
-        // Функція для визначення джерела (TikTok/Instagram)
-        function isFromBlockedApp() {
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            const blockedApps = ['TikTok', 'Instagram'];
-            return blockedApps.some(app => userAgent.includes(app));
-        }
+<button onclick="openExternalBrowser()">🔗 Відкрити в браузері</button>
 
-        // Перенаправлення
-        function redirect() {
-            const targetUrl = "https://google.com"; // Замініть на своє посилання
-            if (isFromBlockedApp()) {
-                // Відкриваємо у зовнішньому браузері через імітацію кліку
-                const link = document.createElement('a');
-                link.href = targetUrl;
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
-                document.body.appendChild(link);
-                link.click();
-            } else {
-                // Звичайне перенаправлення
-                window.location.href = targetUrl;
-            }
-        }
+<script>
+  function openExternalBrowser() {
+    let url = "https://googke.com"; // Сюди встав своє посилання
 
-        // Запускаємо при завантаженні сторінки
-        window.onload = redirect;
-    </script>
-    <!-- Резервне перенаправлення через мета-тег -->
-    <meta http-equiv="refresh" content="3; url=https://ваш-сайт.com">
-</head>
-<body>
-    <p>Якщо перенаправлення не спрацювало, <a href="https://google.com" target="_blank">натисніть тут</a>.</p>
-</body>
-</html>
+    let button = document.querySelector('button[data-action="open-in-browser"]');
+    if (button) {
+      button.click(); // Імітує клік по вбудованій кнопці TikTok
+    } else {
+      window.location.href = url; // Якщо не знайдено кнопку, просто переходимо
+    }
+  }
+</script>
